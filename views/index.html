@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>KFKtools</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+</head>
+
+<body>
+    <ul class="layui-nav layui-bg-green">
+        <li class="layui-nav-item">
+            <a href="/">KFK-tools</a>
+        </li>
+    </ul>
+    <div class="layui-fluid">
+        <div class="layui-tab">
+            <ul class="layui-tab-title">
+                <li class="layui-this">内容查看</li>
+                <li>Topic创建</li>
+                <li>测试数据</li>
+                <li>配置</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">{{template "data.html" .}}</div>
+                <div class="layui-tab-item">{{template "topic.html" .}}</div>
+                <div class="layui-tab-item">{{template "test.html" .}}</div>
+                <div class="layui-tab-item">{{template "setting.html" .}}</div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/layui/layui.js"></script>
+    <script>
+        layui.use(['element', 'tree', 'table'], function () {
+            var element = layui.element;
+            var tree = layui.tree;
+            var table = layui.table;
+            var $ = layui.$;
+
+            $.getJSON("/topic/list", function (data) {
+                if (data.length == 0) {
+                    return
+                }
+                $("#table-topic").html(data[0].title)
+                table.render({
+                    elem: '#partition-table'
+                    , cols: [[
+                        { field: 'title', title: '分片', width: 100 }
+                        , { field: 'state', title: '状态' }
+                    ]]
+                    , data: data[0].partition
+                })
+                tree.render({
+                    elem: '#topics'
+                    , data: data
+                    , click: function (obj) {
+                        $("#table-topic").html(obj.data.title)
+                        table.render({
+                            elem: '#partition-table'
+                            , cols: [[
+                                { field: 'title', title: '分片', width: 100 }
+                                , { field: 'state', title: '状态' }
+                            ]]
+                            , data: obj.data.partition
+                        })
+                    }
+                });
+            })
+
+        });
+    </script>
+</body>
+
+</html>
