@@ -1,75 +1,105 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 
 <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>KFKtools</title>
-    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+
+    <title>Hello, world!</title>
 </head>
 
 <body>
-    <ul class="layui-nav layui-bg-green">
-        <li class="layui-nav-item">
-            <a href="/">KFK-tools</a>
-        </li>
-    </ul>
-    <div class="layui-fluid">
-        <div class="layui-tab">
-            <ul class="layui-tab-title">
-                <li class="layui-this">内容查看</li>
-                <li>Topic创建</li>
-                <li>测试数据</li>
-                <li>配置</li>
-            </ul>
-            <div class="layui-tab-content">
-                <div class="layui-tab-item layui-show">{{template "data.html" .}}</div>
-                <div class="layui-tab-item">{{template "topic.html" .}}</div>
-                <div class="layui-tab-item">{{template "test.html" .}}</div>
-                <div class="layui-tab-item">{{template "setting.html" .}}</div>
-            </div>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Kafka浏览器</a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse"
+            data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+            </li>
+        </ul>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="sidebar-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                Dashboard <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                Orders
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                Products
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                Customers
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                Reports
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                Integrations
+                            </a>
+                        </li>
+                    </ul>
+                    <h6
+                        class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>Saved reports</span>
+                    </h6>
+                    <ul class="nav flex-column mb-2">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                Current month
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                Last quarter
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                Social engagement
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                Year-end sale
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            </main>
         </div>
     </div>
-    <script src="/static/layui/layui.js"></script>
-    <script>
-        layui.use(['element', 'tree', 'table'], function () {
-            var element = layui.element;
-            var tree = layui.tree;
-            var table = layui.table;
-            var $ = layui.$;
 
-            $.getJSON("/topic/list", function (data) {
-                if (data.length == 0) {
-                    return
-                }
-                $("#table-topic").html(data[0].title)
-                table.render({
-                    elem: '#partition-table'
-                    , cols: [[
-                        { field: 'title', title: '分片', width: 100 }
-                        , { field: 'state', title: '状态' }
-                    ]]
-                    , data: data[0].partition
-                })
-                tree.render({
-                    elem: '#topics'
-                    , data: data
-                    , click: function (obj) {
-                        $("#table-topic").html(obj.data.title)
-                        table.render({
-                            elem: '#partition-table'
-                            , cols: [[
-                                { field: 'title', title: '分片', width: 100 }
-                                , { field: 'state', title: '状态' }
-                            ]]
-                            , data: obj.data.partition
-                        })
-                    }
-                });
-            })
-
-        });
-    </script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/static/js/jquery-3.2.1.min.js"></script>
+    <script src="/static/js/popper.min.js"></script>
+    <script src="/static/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
