@@ -17,3 +17,10 @@ func (c *TopicController) Get() {
 	c.Data["json"] = &json
 	c.ServeJSON()
 }
+
+//Create 创建主题
+func (c *TopicController) Create() {
+	json := utils.GetKafkaTopic()
+	c.Data["json"] = &json
+	c.ServeJSON()
+}

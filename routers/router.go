@@ -12,4 +12,5 @@ func init() {
 	beego.Router("/index.html", &controllers.MainController{})
 
 	beego.Router("/topic/list", &controllers.TopicController{})
+	beego.Router("/topic/create", &controllers.TopicController{}, "*:Create")
 }
